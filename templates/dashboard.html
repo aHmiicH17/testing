@@ -26,6 +26,8 @@
         </div>
     </nav>
 
+    <div class="welcomebtn">
+
     <header>
         <h1>Welcome to Lipsync Lab</h1>
         <p>Your one-stop solution for effortless AI-powered lip-syncing. Start setting up below.</p>
@@ -41,7 +43,9 @@
         {% endif %}
 
     </section>
-    
+
+    </div>
+
     <main>
         <!-- Left column -->
         <div class="left-column">
@@ -61,6 +65,9 @@
                     <span>Supports: MP4, AVI</span>
                 </div>
             </section>
+            <form method="post" action="/">
+                <button type="submit" class="btn-primary" id="setup-btn">Start Lipsync Video</button> 
+            </form>
         </div>
         
         <!-- Right column -->
