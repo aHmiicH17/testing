@@ -50,8 +50,8 @@ def dashboard():
     return render_template('dashboard.html')
 
 # Route to handle audio file upload
-@app.route('/upload_audio', methods=['POST'])
-def upload_audio():
+@app.route('/audio', methods=['POST'])
+def audio():
     if 'audio_file' not in request.files:
         flash('No audio file part')
         return redirect(url_for('dashboard'))
@@ -68,8 +68,8 @@ def upload_audio():
         return redirect(url_for('dashboard'))
 
 # Route to handle video file upload
-@app.route('/upload_video', methods=['POST'])
-def upload_video():
+@app.route('/video', methods=['POST'])
+def video():
     if 'video_file' not in request.files:
         flash('No video file part')
         return redirect(url_for('dashboard'))
