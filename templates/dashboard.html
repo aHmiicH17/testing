@@ -50,21 +50,28 @@
         <!-- Left column -->
         <div class="left-column">
             <section class="upload-box">
-                <h2>Upload Audio</h2>
+                <h2>Select Audio</h2>
                 <div class="drop-zone" id="audio-drop-zone">
                     <img src="{{ url_for('static', filename='img/upload-icon.png') }}" alt="Upload">
                     <p>Drop your audio here, or browse</p>
                     <span>Supports: MP3, WAV</span>
                 </div>
+                <form method="post" action="">
+                    <button type="submit" class="btn-primary" id="setup-btn">Upload Audio</button> 
+                </form>
             </section>
 
             <section class="upload-box">
-                <h2>Upload Video</h2>
+                <h2>Select Video</h2>
                 <div class="drop-zone" id="video-drop-zone">
                     <img src="{{ url_for('static', filename='img/upload-icon.png') }}" alt="Upload">
                     <p>Drop your video here, or browse</p>
                     <span>Supports: MP4, AVI</span>
                 </div>
+                <form method="post" action="">
+                    <button type="submit" class="btn-primary" id="setup-btn">Upload Video</button> 
+                </form>
+
             </section>
 
             <!-- <section class="upload-box">
