@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lipsyncing Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <div class="logo-text">
+                <h1>AI LIPSYNCING</h1>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('setting') }}" class="nav-link">Settings</a>
+        </div>
+    </nav>
+
+    <div class="welcomebtn">
+        <header>
+            <h1>Welcome to Lipsync Lab</h1>
+            <p>Your one-stop solution for effortless AI-powered lip-syncing. Start setting up below.</p>
+        </header>
+        <section>
+            <form method="post" action="{{ url_for('dashboard') }}">
+                <button type="submit" class="btn-primary" id="setup-btn">Start Lipsync Lab Setup</button> 
+            </form>
+
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+        </section>
+    </div>
+
+    <main>
+        <!-- Left column for file uploads -->
+        <div class="left-column">
+            <!-- Audio Upload Form -->
+            <form method="post" action="{{ url_for('upload_audio') }}" enctype="multipart/form-data">
+                <section class="upload-box">
+                    <h2>Upload Audio</h2>
+                    <div class="drop-zone">
+                        <input type="file" name="audio_file" accept="audio/*" required>
+                        <p>Drop your audio here, or browse</p>
+                        <span>Supports: MP3, WAV</span>
+                    </div>
+                    <button type="submit" class="btn-primary">Upload Audio</button>
+                </section>
+            </form>
+
+            <!-- Video Upload Form -->
+            <form method="post" action="{{ url_for('upload_video') }}" enctype="multipart/form-data">
+                <section class="upload-box">
+                    <h2>Upload Video</h2>
+                    <div class="drop-zone">
+                        <input type="file" name="video_file" accept="video/*" required>
+                        <p>Drop your video here, or browse</p>
+                        <span>Supports: MP4, AVI</span>
+                    </div>
+                    <button type="submit" class="btn-primary">Upload Video</button>
+                </section>
+            </form>
+
+            <form method="post" action="/start_lipsync">
+                <button type="submit" class="btn-primary" id="setup-btn">Start Lipsync Video</button>
+            </form>
+        </div>
+
+        <!-- Right column for preview -->
+        <div class="right-column">
+            <section class="preview-section">
+                <h2>Preview</h2>
+                <div class="preview-content">
+                    {% if result_video %}
+                    <video controls width="100%">
+                        <source src="{{ url_for('static', filename=result_video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% else %}
+                    <p>No preview available</p>
+                    {% endif %}
+                </div>
+                <div class="preview-buttons">
+                    {% if result_video %}
+                    <a href="{{ url_for('download_file', filename=result_video) }}" class="action-button" download>Download</a>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="satisfaction-survey">
+            <p>How satisfied are you with our customer support performance?</p>
+            <div class="rating-buttons">
+                <button class="rating-btn" data-rating="unhappy">😞<span>Unhappy</span></button>
+                <button class="rating-btn" data-rating="neutral">😐<span>Neutral</span></button>
+                <button class="rating-btn" data-rating="satisfied">😊<span>Satisfied</span></button>
+            </div>
+            <button id="send-review" class="send-review-btn">Send Review</button>
+        </div>
+    </footer>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Lipsync-Lab Web App. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
