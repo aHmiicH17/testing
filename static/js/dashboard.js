@@ -131,14 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {HTMLElement} dropZone - The drop zone element
      * @param {string} type - The type of file (Audio or Video)
      */
-    function handleFileUpload(input, dropZone, type) {
+    const handleFileUpload = (input, dropZone, type) => {
         const file = input.files[0];
         if (file) {
             dropZone.innerHTML = `
                 <p style="font-weight: bold;">${type} file uploaded: ${file.name}</p>
             `;
         }
-    }
+    };
 
     /**
      * Function to handle file drop and trigger file upload handling
@@ -147,46 +147,38 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {HTMLElement} dropZone - The drop zone element
      * @param {string} type - The type of file (Audio or Video)
      */
-    function handleDrop(event, input, dropZone, type) {
+    const handleDrop = (event, input, dropZone, type) => {
         event.preventDefault();
         const file = event.dataTransfer.files[0];
         if (file) {
-            // Assign dropped file to the input element and trigger a change event
             input.files = event.dataTransfer.files;
             handleFileUpload(input, dropZone, type);
         }
-    }
+    };
 
     /**
      * Function to prevent default behavior on dragover
      * @param {DragEvent} event - The dragover event
      */
-    function handleDragOver(event) {
+    const handleDragOver = (event) => {
         event.preventDefault();
-    }
+    };
 
-    // Audio drop zone events
-    audioDropZone.addEventListener('dragover', handleDragOver);
-    audioDropZone.addEventListener('drop', (event) =>
-        handleDrop(event, audioUploadInput, audioDropZone, 'Audio')
-    );
-    audioDropZone.addEventListener('click', () => audioUploadInput.click());
+    /**
+     * Function to set up drag-and-drop functionality for a drop zone
+     * @param {HTMLElement} dropZone - The drop zone element
+     * @param {HTMLInputElement} input - The input element
+     */
+    const handleFileDrop = (dropZone, input) => {
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('drop', (event) => handleDrop(event, input, dropZone, input.getAttribute('id').includes('audio') ? 'Audio' : 'Video'));
+        dropZone.addEventListener('click', () => input.click());
+        input.addEventListener('change', () => handleFileUpload(input, dropZone, input.getAttribute('id').includes('audio') ? 'Audio' : 'Video'));
+    };
 
-    // Video drop zone events
-    videoDropZone.addEventListener('dragover', handleDragOver);
-    videoDropZone.addEventListener('drop', (event) =>
-        handleDrop(event, videoUploadInput, videoDropZone, 'Video')
-    );
-    videoDropZone.addEventListener('click', () => videoUploadInput.click());
-
-    // Input change events
-    audioUploadInput.addEventListener('change', () => {
-        handleFileUpload(audioUploadInput, audioDropZone, 'Audio');
-    });
-
-    videoUploadInput.addEventListener('change', () => {
-        handleFileUpload(videoUploadInput, videoDropZone, 'Video');
-    });
+    // Audio and Video drop zones
+    handleFileDrop(audioDropZone, audioUploadInput);
+    handleFileDrop(videoDropZone, videoUploadInput);
 
     // Handle rating button selection
     ratingButtons.forEach((button) => {
@@ -218,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Handle navigation links
-    
     navLinks.forEach((link) => {
         link.addEventListener('click', (e) => {
             e.preventDefault();

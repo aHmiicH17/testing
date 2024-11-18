@@ -36,40 +36,38 @@
     </div>
 
     <main>
-        <!-- Left column for file uploads -->
         <div class="left-column">
-            <!-- Audio Upload Form -->
-            <form method="post" action="{{ url_for('upload_audio') }}" enctype="multipart/form-data">
-                <section class="upload-box">
-                    <h2>Upload Audio</h2>
-                    <div class="drop-zone">
-                        <input type="file" name="audio_file" accept="audio/*" required>
-                        <p>Drop your audio here, or browse</p>
-                        <span>Supports: MP3, WAV</span>
-                    </div>
+            <!-- Audio Upload Section -->
+            <section class="upload-box">
+                <h2>Upload Audio</h2>
+                <div class="drop-zone" id="audio-drop-zone">
+                    <p>Drop your audio here, or browse</p>
+                    <span>Supports: MP3, WAV</span>
+                    <input type="file" id="audio-upload" name="audio_file" accept="audio/*" hidden>
+                </div>
+                <form method="post" action="{{ url_for('upload_audio') }}" enctype="multipart/form-data">
                     <button type="submit" class="btn-primary">Upload Audio</button>
-                </section>
-            </form>
+                </form>
+            </section>
 
-            <!-- Video Upload Form -->
-            <form method="post" action="{{ url_for('upload_video') }}" enctype="multipart/form-data">
-                <section class="upload-box">
-                    <h2>Upload Video</h2>
-                    <div class="drop-zone">
-                        <input type="file" name="video_file" accept="video/*" required>
-                        <p>Drop your video here, or browse</p>
-                        <span>Supports: MP4, AVI</span>
-                    </div>
+            <!-- Video Upload Section -->
+            <section class="upload-box">
+                <h2>Upload Video</h2>
+                <div class="drop-zone" id="video-drop-zone">
+                    <p>Drop your video here, or browse</p>
+                    <span>Supports: MP4, AVI</span>
+                    <input type="file" id="video-upload" name="video_file" accept="video/*" hidden>
+                </div>
+                <form method="post" action="{{ url_for('upload_video') }}" enctype="multipart/form-data">
                     <button type="submit" class="btn-primary">Upload Video</button>
-                </section>
-            </form>
+                </form>
+            </section>
 
             <form method="post" action="/start_lipsync">
                 <button type="submit" class="btn-primary" id="setup-btn">Start Lipsync Video</button>
             </form>
         </div>
 
-        <!-- Right column for preview -->
         <div class="right-column">
             <section class="preview-section">
                 <h2>Preview</h2>
